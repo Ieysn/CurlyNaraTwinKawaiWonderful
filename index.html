@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForPrettiestGirlIEverSeenBefore</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #faf6f0;
+            overflow-x: hidden;
+            transition: background-color 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        /* Desktopda kursor gizlədilir, lakin mobildə problem yaratmır */
+        @media (min-width: 1024px) {
+            body, * { cursor: none !important; }
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 3px; }
+        
+        /* 🎞️ ANALOG FILM GRAIN */
+        #film-grain {
+            position: fixed;
+            top: -50%; left: -50%; right: -50%; bottom: -50%;
+            width: 200%; height: 200%;
+            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 999;
+            animation: grain-animation 0.3s steps(5) infinite;
+        }
+        @keyframes grain-animation {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(-1%, 1%); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+            color: transparent;
+        }
+
+        /* Scratch Card Canvas */
+        #scratch-canvas {
+            cursor: pointer;
+            touch-action: none;
+        }
+
+        /* Yazı yazılma kursoru animasiyası */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 0.8s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body id="dynamic-body" class="antialiased select-none text-[#111827]">
+
+    <div id="film-grain"></div>
+
+    <div id="custom-dot" class="hidden lg:block fixed top-0 left-0 w-3 h-3 bg-[#10b981] rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"></div>
+    <div id="custom-ring" class="hidden lg:block fixed top-0 left-0 w-8 h-8 border border-[#10b981] bg-emerald-500/5 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-all duration-150 ease-out flex items-center justify-center text-[8px] font-mono uppercase font-bold text-[#064e3b] text-center whitespace-pre p-2"></div>
+
+    <div class="fixed top-0 left-0 right-0 h-1.5 bg-black/5 z-50">
+        <div id="mobile-progress" class="h-full bg-[#10b981] w-0"></div>
+    </div>
+
+    <div class="hidden sm:block fixed right-4 md:right-8 lg:right-16 top-[15vh] bottom-[15vh] w-16 md:w-24 z-40">
+        <svg class="w-full h-full" viewBox="0 0 100 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path id="map-track-bg" d="M50 10 Q20 200, 80 400 T50 790" stroke="rgba(16, 185, 129, 0.12)" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
+            <path id="map-track-fill" d="M50 10 Q20 200, 80 400 T50 790" stroke="#10b981" stroke-width="2.5" fill="none"/>
+        </svg>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-6 font-mono text-[9px] text-[#10b981] tracking-widest bg-[#faf6f0]/90 px-1 rounded">BAKU</div>
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-6 font-mono text-[9px] text-rose-500 tracking-widest bg-[#faf6f0]/90 px-1 rounded">MILAN</div>
+
+        <div id="plane-node" class="absolute top-0 left-0 w-9 h-9 bg-white rounded-full border border-[#10b981]/40 shadow-md flex items-center justify-center text-[#10b981]" style="margin-left: -4px; margin-top: -18px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 transform rotate-45">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            </svg>
+        </div>
+    </div>
+
+    <audio id="bg-audio" src="Futile Devices (Doveman Remix)  Call Me By Your Name (Original Motion Picture Soundtrack).mp3" loop preload="auto"></audio>
+
+    <div class="w-full">
+
+        <section class="relative w-full min-h-screen flex flex-col justify-center px-6 sm:px-12 md:px-24 lg:px-32 z-20">
+            <div class="max-w-3xl">
+
+
+                <div class="relative inline-block group class-hover">
+<h1 id="hero-title" class="text-6xl sm:text-7xl md:text-8xl font-normal tracking-wide uppercase transition-all duration-500 cursor-default select-none" style="font-family: 'Cinzel Decorative', serif;">
+    Diva
+</h1>
+<div class="flex flex-col items-center justify-center my-12">
+    <button id="lily-trigger-btn" class="group flex flex-col items-center justify-center px-8 py-4 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-full border border-emerald-500/20 transition-all duration-300 active:scale-95 shadow-sm shadow-emerald-900/5 class-action">
+        
+        <span class="font-serif italic text-xl sm:text-2xl text-emerald-950 tracking-[0.05em] group-hover:text-emerald-800 transition-colors duration-300">
+            for u
+        </span>
+        
+        <span class="font-mono text-[9px] sm:text-[10px] text-emerald-600 font-bold tracking-[0.3em] uppercase mt-1 flex items-center gap-1">
+            OPEN ME <span class="animate-pulse text-xs text-rose-400">🌸</span>
+        </span>
+        
+    </button>
+</div>
+
+<div id="lily-photo-modal" class="fixed inset-0 z-[995] flex flex-col items-center justify-center bg-black/50 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-500 px-4">
+    
+    <div id="modal-top-text" class="text-center mb-8 transform -translate-y-4 transition-all duration-700 opacity-0 max-w-lg">        <h2 class="text-3xl sm:text-4xl md:text-5xl font-light tracking-wide text-white font-serif italic leading-tight">
+            for prettiest girl
+        </h2>
+    </div>
+
+    <div class="bg-white p-4 pb-12 shadow-2xl rounded-xs w-72 sm:w-80 transform scale-95 transition-transform duration-500 relative" id="modal-card">
+        
+        <button id="close-modal-btn" class="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-[10px] font-mono text-neutral-400 hover:text-neutral-800 bg-neutral-100 rounded-full cursor-pointer z-50 transition-colors">X</button>
+
+        <div class="w-full aspect-square bg-neutral-100 bg-cover bg-center rounded-sm border border-neutral-200 shadow-inner" 
+             style="background-image: url('lily.jpg');"> </div>
+
+        <div class="text-center mt-5">
+            <p class="font-serif italic text-emerald-950 text-xs sm:text-sm tracking-wide">"Words are futile devices."</p>
+        </div>
+    </div>
+</div>
+                </div>
+
+                <div class="mt-6 max-w-lg">
+                    <p class="text-base sm:text-lg font-light text-neutral-500 leading-relaxed">
+U re the  best  kawaii curly girl for me 
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative w-full min-h-screen flex flex-col xl:flex-row items-center justify-center gap-12 lg:gap-16 xl:gap-24 px-4 sm:px-8 py-24 z-20">
+            
+            <div class="w-full max-w-md md:max-w-lg flex flex-col">
+                <div class="mb-4 px-2">
+                    <span class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#10b981] block mb-1">INTERFACE FEED</span>
+                    <h2 class="text-2xl md:text-3xl font-light tracking-tight text-emerald-800">Sufjan's Blueprint</h2>
+                </div>
+
+                <div class="w-full bg-white/80 backdrop-blur-md rounded-3xl p-6 shadow-xl border border-emerald-500/10 relative overflow-hidden">
+                    <canvas id="visualizer-canvas" width="480" height="120" class="absolute bottom-0 left-0 right-0 w-full h-20 pointer-events-none opacity-20"></canvas>
+
+                    <div class="relative z-10 flex flex-col gap-5">
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="min-w-0">
+                                <span class="text-[9px] font-mono text-[#10b981] bg-[#10b981]/10 px-2 py-0.5 rounded uppercase">Sufjan Stevens</span>
+                                <h3 class="text-lg md:text-xl font-medium tracking-tight mt-1 truncate text-neutral-800">Futile Devices</h3>
+                            </div>
+                            <button id="play-btn" class="w-12 h-12 rounded-full bg-[#10b981] text-white flex items-center justify-center shadow-md hover:bg-emerald-700 transition-all class-action">
+                                <span id="play-icon" class="text-base pl-0.5">▶</span>
+                            </button>
+                        </div>
+
+                        <div class="relative">
+                            <div id="progress-container" class="h-1.5 w-full bg-neutral-200/60 rounded-full cursor-pointer">
+                                <div id="audio-progress-bar" class="h-full bg-[#10b981] rounded-full w-0"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-mono text-neutral-400 mt-1.5">
+                                <span id="current-time">00:00</span>
+                                <span id="total-time">00:00</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between border-t border-neutral-100 pt-3">
+                            <div class="flex items-center gap-2 w-full">
+                                <span class="text-neutral-400 font-mono text-[10px]">VOL</span>
+                                <input id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.8" class="w-24 accent-[#10b981] h-1 bg-neutral-200 rounded-lg appearance-none cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center gap-8 xl:gap-12 w-full justify-center">
+                
+                <div id="polaroid" class="bg-white p-4 pb-12 shadow-xl border border-emerald-500/5 rounded-xs w-72 sm:w-76 flex flex-col gap-4 transform rotate-1 class-text" data-text="ANALOG FRAME">
+<div class="relative w-full aspect-square bg-[url('futile.jpg')] bg-cover bg-center overflow-hidden flex flex-col justify-end p-4">                        <div class="relative z-10 text-white">
+                            <span class="text-[9px] font-mono tracking-[0.2em] opacity-70 block">ANALOG TRACK</span>
+                            <h3 class="font-serif italic text-lg font-semibold">Call Me By Your Name</h3>
+                        </div>
+                    </div>
+                    <div class="text-center mt-1">
+                        <p class="font-serif italic text-emerald-950 text-sm">"Words are futile devices."</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl shadow-xl border border-neutral-200/60 w-76 sm:w-80 flex flex-col gap-4 relative">
+                    <div class="text-center border-b border-neutral-100 pb-2">
+                        <p class="text-sm font-serif italic text-neutral-700 mt-1">"The best kawaii curly girl in the world(UNIVERSE)"</p>
+                    </div>
+
+                    <div class="relative w-full h-40 bg-neutral-900 rounded-xl overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-emerald-500 to-teal-800 select-none">
+                            <span class="text-white font-black text-4xl tracking-widest drop-shadow-md animate-bounce"> YOU</span>
+                        </div>
+
+                        <canvas id="scratch-canvas" width="300" height="160" class="absolute inset-0 z-10"></canvas>
+                    </div>
+
+                    <div class="bg-neutral-50 border border-neutral-100 rounded-xl p-3 min-h-[64px] flex items-center">
+                        <p id="typing-box" class="text-xs font-mono text-neutral-600 leading-relaxed typing-cursor"></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+<section id="story-trigger" class="relative w-full min-h-[60vh] flex items-center justify-center px-6 z-20">
+    <div class="max-w-3xl mx-auto text-center space-y-4">
+
+        <!-- Əsas Böyük Yazı -->
+        <h2 class="text-3xl sm:text-5xl font-extralight tracking-tight text-neutral-800 leading-relaxed class-hover">
+            Next station: <span class="font-normal italic text-neutral-900">Italian nights</span> & memories that last forever.
+        </h2>
+    </div>
+</section>
+
+        <section id="footer-climax" class="relative w-full min-h-screen bg-[#030712] text-neutral-100 flex flex-col justify-between p-6 sm:p-12 md:p-24 z-20 overflow-hidden">
+            
+            <canvas id="concert-canvas" class="absolute inset-0 pointer-events-none z-10 w-full h-full object-cover"></canvas>
+
+            <div class="w-full flex justify-between items-start border-b border-white/10 pb-6 relative z-30">
+          
+                <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono text-neutral-300">
+                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping"></span>
+                    <span id="climax-status">SCROLL TO AWAKEN</span>
+                </div>
+            </div>
+
+            <div class="my-auto max-w-4xl relative z-30 py-12">
+                <span class="text-stroke text-4xl sm:text-7xl md:text-8xl font-black block tracking-tighter uppercase leading-none opacity-20">XO ARRIVAL</span>
+                <h2 class="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-300 to-[#10b981] mt-1 class-hover">
+                    ITALY &  <br>THE WEEKND
+                </h2>
+                <p class="mt-6 text-base sm:text-lg font-extralight text-neutral-400 max-w-xl">
+                    Çox sebirsizlənirəm səni orda görmək üçün(yani görmüyecem de amma sen anladın işde tysm)İNS Çox əylənərsən hiç unutamadığın bir güzel anı olar!
+                    İtaliya seni ağırlıyacak diye çok mutlu olmalı, sonuçta senin gibi biri oraya gidiyor.Ülke şahlancak. sen çok iyi birisin ve çok kawaiisin.Always be happy and georgeous.
+                    <br>💚</b>
+                    this site for Prettiest girl I ever seen before
+                </p>
+            </div>
+
+        </section>
+    </div>
+
+    <script>
+        // Kodun yuxarı hissəsinə, CSS laylarının dərhal altına əlavə et:
+// =========================================================================
+// 🌸 FULLSCREEN LILY FLOWERS & PETALS CASCADE (Vanilla JS + Canvas)
+// =========================================================================
+const lilyCanvas = document.createElement('canvas');
+lilyCanvas.id = 'lily-cascade-canvas';
+lilyCanvas.style.position = 'fixed';
+lilyCanvas.style.top = '0';
+lilyCanvas.style.left = '0';
+lilyCanvas.style.width = '100%';
+lilyCanvas.style.height = '100%';
+lilyCanvas.style.pointerEvents = 'none'; // Üstünə basmaq olmasın
+lilyCanvas.style.zIndex = '990'; // Film grain-dən dərhal aşağı, mətnlərin üstü
+document.body.appendChild(lilyCanvas);
+
+const lilyCtx = lilyCanvas.getContext('2d');
+let cascadeElements = [];
+// Kodun ən aşağısındakı mövcud modal skriptlərini bununla əvəz et:
+const triggerBtn = document.getElementById('lily-trigger-btn');
+const photoModal = document.getElementById('lily-photo-modal');
+const modalCard = document.getElementById('modal-card');
+const topText = document.getElementById('modal-top-text');
+const closeModalBtn = document.getElementById('close-modal-btn');
+
+// Canvas quraşdırılması
+let lCanvas = document.getElementById('lily-cascade-canvas');
+if(!lCanvas) {
+    lCanvas = document.createElement('canvas');
+    lCanvas.id = 'lily-cascade-canvas';
+    lCanvas.style.position = 'fixed';
+    lCanvas.style.top = '0'; lCanvas.style.left = '0';
+    lCanvas.style.width = '100%'; lCanvas.style.height = '100%';
+    lCanvas.style.pointerEvents = 'none'; lCanvas.style.zIndex = '999';
+    document.body.appendChild(lCanvas);
+}
+const lCtx = lCanvas.getContext('2d');
+let sidePetals = [];
+
+const pSVG = `<svg width="40" height="70" viewBox="0 0 40 70" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C25 15 35 30 35 45C35 55 30 65 20 70C10 65 5 55 5 45C5 30 15 15 20 0Z" fill="white" stroke="#E5E7EB" stroke-width="0.3"/></svg>`;
+const pImg = new Image();
+pImg.src = 'data:image/svg+xml;base64,' + btoa(pSVG);
+
+class SidePetal {
+    constructor(side) {
+        this.side = side;
+        this.reset();
+    }
+    reset() {
+        this.size = Math.random() * 25 + 15;
+        this.rotation = Math.random() * 360;
+        this.rSpeed = (Math.random() - 0.5) * 5;
+        this.alpha = 1;
+        this.decay = Math.random() * 0.004 + 0.004;
+
+        if(this.side === 'left') {
+            this.x = -50;
+            this.y = Math.random() * lCanvas.height;
+            this.vx = Math.random() * 5 + 4; // Kənardan sürətlə daxil olsunlar
+            this.vy = (Math.random() - 0.5) * 4;
+        } else {
+            this.x = lCanvas.width + 50;
+            this.y = Math.random() * lCanvas.height;
+            this.vx = -(Math.random() * 5 + 4);
+            this.vy = (Math.random() - 0.5) * 4;
+        }
+    }
+    update() {
+        this.x += this.vx; this.y += this.vy;
+        this.rotation += this.rSpeed; this.alpha -= this.decay;
+    }
+    draw() {
+        if (this.alpha <= 0 || !pImg.complete) return;
+        lCtx.save(); lCtx.globalAlpha = this.alpha;
+        lCtx.translate(this.x, this.y); lCtx.rotate(this.rotation * Math.PI / 180);
+        lCtx.drawImage(pImg, -this.size/2, -this.size*1.75/2, this.size, this.size*1.75);
+        lCtx.restore();
+    }
+}
+
+function resizeLCanvas() { lCanvas.width = window.innerWidth; lCanvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeLCanvas); resizeLCanvas();
+
+function loopSideLilies() {
+    lCtx.clearRect(0, 0, lCanvas.width, lCanvas.height);
+    sidePetals.forEach((p, idx) => {
+        p.update(); p.draw();
+        if(p.alpha <= 0) sidePetals.splice(idx, 1);
+    });
+    requestAnimationFrame(loopSideLilies);
+}
+loopSideLilies();
+
+// MODAL AÇILMA MEXANİZMİ
+if(triggerBtn) {
+    triggerBtn.addEventListener('click', () => {
+        if(photoModal) { photoModal.style.opacity = '1'; photoModal.style.pointerEvents = 'auto'; }
+        if(modalCard) { modalCard.style.transform = 'scale(1) rotate(0deg)'; }
+        
+        // Üstdəki irili mətni hamar şəkildə yuxarıdan aşağı sürüşdür və vizual et
+        if(topText) {
+            topText.style.opacity = '1';
+            topText.style.transform = 'translateY(0)';
+        }
+
+        // Kənarlardan 40 ədəd zanbaq ləçəyi fırlanaraq daxil olur
+        for(let i=0; i<25; i++) {
+            sidePetals.push(new SidePetal('left'));
+            sidePetals.push(new SidePetal('right'));
+        }
+    });
+}
+
+// MODAL BAĞLANMA MEXANİZMİ
+if(closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+        if(photoModal) { photoModal.style.opacity = '0'; photoModal.style.pointerEvents = 'none'; }
+        if(modalCard) { modalCard.style.transform = 'scale(0.95) rotate(2deg)'; }
+        if(topText) {
+            topText.style.opacity = '0';
+            topText.style.transform = 'translateY(-16px)';
+        }
+    });
+}
+// =========================================================================
+// 🎨 Real Zanbaq Ləçəyi Forması (SVG -> DataURI) - Parlaq, təmiz ağ
+const petalSVG = `
+<svg width="40" height="70" viewBox="0 0 40 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 0C25 15 35 30 35 45C35 55 30 65 20 70C10 65 5 55 5 45C5 30 15 15 20 0Z" fill="white" stroke="#F0F0F0" stroke-width="0.3"/>
+</svg>
+`;
+const petalImage = new Image();
+petalImage.src = 'data:image/svg+xml;base64,' + btoa(petalSVG);
+
+class CascadeElement {
+    constructor(isFirstWave = false) {
+        this.isFirstWave = isFirstWave;
+        this.reset();
+    }
+
+    reset() {
+        this.x = Math.random() * lilyCanvas.width;
+        
+        // İlk dalğanı bütün ekrana yaymaq, sonrakıları yalnız yuxarıdan başlamaq
+        if (this.isFirstWave) {
+            this.y = Math.random() * lilyCanvas.height;
+            this.isFirstWave = false; // Bir dəfə yayıldıqdan sonra standart rejimə keçsin
+        } else {
+            this.y = -Math.random() * 200 - 100; // Ekranın xeyli yuxarısından başlasın
+        }
+        
+        this.size = Math.random() * 25 + 15; // Bir az daha böyük
+        this.vx = (Math.random() - 0.5) * 1.5; // Külək effekti
+        this.vy = Math.random() * 1.5 + 1; // Şaquli düşmə sürəti
+        this.rotation = Math.random() * 360;
+        this.rSpeed = (Math.random() - 0.5) * 2; // Fırlanma
+        this.alpha = Math.random() * 0.4 + 0.3; // Daha aydın
+    }
+
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.rotation += this.rSpeed;
+        
+        // Ekranın aşağısına çatanda sıfırlasın
+        if (this.y > lilyCanvas.height + 100) {
+            this.reset();
+        }
+        
+        // Ekranın kənarından çıxanda digər kənardan gəlsin
+        if (this.x < -100) { this.x = lilyCanvas.width + 100; }
+        if (this.x > lilyCanvas.width + 100) { this.x = -100; }
+    }
+
+    draw() {
+        if (!petalImage.complete) return;
+        lilyCtx.save();
+        lilyCtx.globalAlpha = this.alpha;
+        lilyCtx.translate(this.x, this.y);
+        lilyCtx.rotate(this.rotation * Math.PI / 180);
+        lilyCtx.drawImage(petalImage, -this.size / 2, -this.size * 1.75 / 2, this.size, this.size * 1.75);
+        lilyCtx.restore();
+    }
+}
+
+// 40 dənə ləçək yaradaq
+for (let i = 0; i < 40; i++) {
+    cascadeElements.push(new CascadeElement(true));
+}
+
+function resizeLilyCanvas() {
+    lilyCanvas.width = window.innerWidth;
+    lilyCanvas.height = window.innerHeight;
+    // Resize olanda mövcud ləçəkləri də ekrana yaymaq olar
+}
+window.addEventListener('resize', resizeLilyCanvas);
+resizeLilyCanvas();
+
+function loopLily() {
+    // Səhifə ağ qalsın deyə fonu təmizləmək
+    lilyCtx.clearRect(0, 0, lilyCanvas.width, lilyCanvas.height);
+    
+    cascadeElements.forEach(p => {
+        p.update();
+        p.draw();
+    });
+    
+    requestAnimationFrame(loopLily);
+}
+
+// Resurslar yüklənəndə animasiyanı başla
+window.addEventListener('load', loopLily);
+// =========================================================================
+        // --- 1. DUAL CUSTOM KURSOR ENGINE (Böyük Ekranlar) ---
+        const dot = document.getElementById('custom-dot');
+        const ring = document.getElementById('custom-ring');
+        let mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            if(dot) dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+        });
+
+        function LERP() {
+            ringX += (mouseX - ringX) * 0.14;
+            ringY += (mouseY - ringY) * 0.14;
+            if(ring) ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+            requestAnimationFrame(LERP);
+        }
+        LERP();
+
+        // Kursor Triggers
+        document.querySelectorAll('.class-hover').forEach(el => {
+            el.addEventListener('mouseenter', () => { if(ring) { ring.style.width = '60px'; ring.style.height = '60px'; ring.style.background = '#10b981'; ring.style.mixBlendMode = 'difference'; } });
+            el.addEventListener('mouseleave', () => { if(ring) { ring.style.width = '32px'; ring.style.height = '32px'; ring.style.background = 'rgba(16,185,129,0.05)'; ring.style.mixBlendMode = 'normal'; } });
+        });
+        document.querySelectorAll('.class-action').forEach(el => {
+            el.addEventListener('mouseenter', () => { if(ring) { ring.style.width = '44px'; ring.style.height = '44px'; ring.style.background = 'rgba(16,185,129,0.15)'; } });
+            el.addEventListener('mouseleave', () => { if(ring) { ring.style.width = '32px'; ring.style.height = '32px'; ring.style.background = 'rgba(16,185,129,0.05)'; } });
+        });
+
+        // --- 2. 🌅 DYNAMIC SCROLL TRANSITION & MAP ENGINE ---
+        const body = document.getElementById('dynamic-body');
+        const mapTrackFill = document.getElementById('map-track-fill');
+        const planeNode = document.getElementById('plane-node');
+        const mobileProgress = document.getElementById('mobile-progress');
+        
+        let pathLength = 0;
+        if(mapTrackFill) {
+            pathLength = mapTrackFill.getTotalLength();
+            mapTrackFill.style.strokeDasharray = pathLength;
+            mapTrackFill.style.strokeDashoffset = pathLength;
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = scrollTop / scrollHeight;
+
+            mobileProgress.style.width = `${progress * 100}%`;
+
+            // Rəng Keçidləri (Səhər -> Günbatan -> Gecə)
+            if (progress < 0.4) {
+                body.style.backgroundColor = "#faf6f0";
+                body.style.color = "#111827";
+            } else if (progress >= 0.4 && progress < 0.75) {
+                body.style.backgroundColor = "#f2d5be"; // İtaliya Günbatımı (Warm Amber)
+                body.style.color = "#1c1917";
+            } else {
+                body.style.backgroundColor = "#030712"; // The Weeknd Neon Gecəsi
+                body.style.color = "#f9fafb";
+            }
+
+            // Xəritə və təyyarə hərəkət mexanikası
+            if(mapTrackFill && planeNode) {
+                const offset = pathLength - (progress * pathLength);
+                mapTrackFill.style.strokeDashoffset = offset;
+
+                const point = mapTrackFill.getPointAtLength(progress * pathLength);
+                const nextPoint = mapTrackFill.getPointAtLength(Math.min(pathLength, (progress * pathLength) + 1));
+                const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * 180 / Math.PI;
+
+                planeNode.style.transform = `translate(${point.x}px, ${point.y}px) rotate(${angle - 45}deg)`;
+            }
+
+            if (progress > 0.78) { initializeClimax(true); } else { initializeClimax(false); }
+        });
+
+        // --- 3. 🎞️ POLAROID LENS FLARE ---
+        const polaroid = document.getElementById('polaroid');
+        const lensFlare = document.getElementById('lens-flare');
+
+        if(polaroid) {
+            polaroid.addEventListener('mousemove', (e) => {
+                const rect = polaroid.getBoundingClientRect();
+                const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+                const rX = ((y / rect.height) - 0.5) * -15; const rY = ((x / rect.width) - 0.5) * 15;
+                polaroid.style.transform = `perspective(1000px) rotateX(${rX}deg) rotateY(${rY}deg) scale(1.02)`;
+                if(lensFlare) {
+                    lensFlare.style.opacity = "1";
+                    lensFlare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.5) 0%, rgba(255,170,90,0.2) 25%, transparent 60%)`;
+                }
+            });
+            polaroid.addEventListener('mouseleave', () => {
+                polaroid.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) rotate(1deg)`;
+                if(lensFlare) lensFlare.style.opacity = "0";
+            });
+        }
+
+        // --- 4. 🧼 SCRATCH CARD ENGINE & AUTO TYPING LOGIC ---
+        const sCanvas = document.getElementById('scratch-canvas');
+        const sCtx = sCanvas.getContext('2d');
+        const typingBox = document.getElementById('typing-box');
+        let isDrawing = false;
+        let scratchTriggered = false;
+        const secretMessage = "Ngl U DIDN'T need to scratch that, u should've known it was U curly kawaii... 💚";
+
+        // Gümüşü rəngli üst örtüyü çəkmək və yazı əlavə etmək
+        function initScratchCard() {
+            sCtx.fillStyle = '#b5b8bc'; // Metallic Silver Coat
+            sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
+            
+            // Üst örtükdəki incə daxili tekstur
+            sCtx.fillStyle = 'rgba(255,255,255,0.15)';
+            for(let i=0; i<300; i++) {
+                sCtx.fillRect(Math.random()*sCanvas.width, Math.random()*sCanvas.height, 2, 2);
+            }
+
+            // Örtüyün üstündəki təlimat mətni
+            sCtx.fillStyle = '#4b5563';
+            sCtx.font = 'bold 11px JetBrains Mono, monospace';
+            sCtx.textAlign = 'center';
+            sCtx.fillText('SCRATCH HERE', sCanvas.width/2, sCanvas.height/2 - 8);
+        }
+        initScratchCard();
+
+        // Pozma funksionallığı (Mouse və Touch adaptivliyi ilə)
+        function scratch(e) {
+            if (!isDrawing) return;
+            const rect = sCanvas.getBoundingClientRect();
+            // ClientX/Y dəyərlərini həm mobil touch, həm mouse üçün oxumaq
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+
+            sCtx.globalCompositeOperation = 'destination-out';
+            sCtx.beginPath();
+            sCtx.arc(x, y, 18, 0, Math.PI * 2); // Pozma fırçasının diametri
+            sCtx.fill();
+
+            // Pozulma anında altda gizli mesajın klaviatura animasiyasını tetiklemek
+            if (!scratchTriggered) {
+                scratchTriggered = true;
+                startTypingAnimation();
+            }
+        }
+
+        sCanvas.addEventListener('mousedown', () => isDrawing = true);
+        sCanvas.addEventListener('mousemove', scratch);
+        window.addEventListener('mouseup', () => isDrawing = false);
+
+        sCanvas.addEventListener('touchstart', () => isDrawing = true);
+        sCanvas.addEventListener('touchmove', scratch);
+        window.addEventListener('touchend', () => isDrawing = false);
+
+        // Canlı Yazı Yazılma Animasiyası (Typing Effect)
+        function startTypingAnimation() {
+            let index = 0;
+            typingBox.innerText = "";
+            function type() {
+                if (index < secretMessage.length) {
+                    typingBox.innerText += secretMessage.charAt(index);
+                    index++;
+                    setTimeout(type, 50); // Yazılma sürəti (milisaniyə)
+                } else {
+                    typingBox.classList.remove('typing-cursor'); // Yazı bitəndə kursoru gizlətmək
+                }
+            }
+            type();
+        }
+
+        // --- 5. COGNITIVE AUDIO ARXİTEKTURASI ---
+        const audio = document.getElementById('bg-audio');
+        const playBtn = document.getElementById('play-btn');
+        const playIcon = document.getElementById('play-icon');
+        const progressBar = document.getElementById('audio-progress-bar');
+        const progressContainer = document.getElementById('progress-container');
+        const currentTimeEl = document.getElementById('current-time');
+        const totalTimeEl = document.getElementById('total-time');
+        const volumeSlider = document.getElementById('volume-slider');
+        let audioCtx, analyser, dataArray, bufferLength;
+        
+        const vCanvas = document.getElementById('visualizer-canvas');
+        const vCtx = vCanvas.getContext('2d');
+
+        playBtn.addEventListener('click', () => {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 64;
+                const source = audioCtx.createMediaElementSource(audio);
+                source.connect(analyser);
+                analyser.connect(audioCtx.destination);
+                bufferLength = analyser.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
+                
+                function drawV() {
+                    requestAnimationFrame(drawV);
+                    analyser.getByteFrequencyData(dataArray);
+                    vCtx.clearRect(0, 0, vCanvas.width, vCanvas.height);
+                    let barWidth = (vCanvas.width / bufferLength) * 1.5;
+                    let barHeight; let x = 0;
+                    for(let i=0; i<bufferLength; i++) {
+                        barHeight = dataArray[i] / 2.5;
+                        vCtx.fillStyle = `rgba(16, 185, 129, ${0.2 + (barHeight/100)})`;
+                        vCtx.fillRect(x, vCanvas.height - barHeight, barWidth - 2, barHeight);
+                        x += barWidth;
+                    }
+                }
+                drawV();
+            }
+            if (audio.paused) { audio.play(); playIcon.innerText = '||'; } 
+            else { audio.pause(); playIcon.innerText = '▶'; }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const per = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = `${per}%`;
+            currentTimeEl.innerText = formatTime(audio.currentTime);
+        });
+        audio.addEventListener('loadedmetadata', () => { totalTimeEl.innerText = formatTime(audio.duration); });
+        progressContainer.addEventListener('click', (e) => {
+            const rect = progressContainer.getBoundingClientRect();
+            audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+        });
+        volumeSlider.addEventListener('input', (e) => { audio.volume = e.target.value; });
+        function formatTime(s) { if(isNaN(s)) return "00:00"; const m=Math.floor(s/60), r=Math.floor(s%60); return `${m<10?'0':''}${m}:${r<10?'0':''}${r}`; }
+
+        // --- 6. ATƏŞFƏŞANLIQ CANVAS (CONCERT CLIMAX) ---
+        const cCanvas = document.getElementById('concert-canvas');
+        const cCtx = cCanvas.getContext('2d');
+        let climaxActive = false, sparks = [];
+        const concertColors = ["#ff0055", "#8b5cf6", "#3b82f6", "#10b981", "#ec4899"];
+
+        function resizeCanvas() { cCanvas.width = window.innerWidth; cCanvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+        class Spark {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 5 + 2;
+                this.vx = Math.cos(angle) * speed; this.vy = Math.sin(angle) * speed;
+                this.alpha = 1; this.decay = Math.random() * 0.012 + 0.008;
+            }
+            update() { this.vx *= 0.98; this.vy *= 0.98; this.vy += 0.06; this.x += this.vx; this.y += this.vy; this.alpha -= this.decay; }
+            draw() {
+                cCtx.save(); cCtx.globalAlpha = this.alpha;
+                cCtx.shadowBlur = 10; cCtx.shadowColor = this.color;
+                cCtx.beginPath(); cCtx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                cCtx.fillStyle = this.color; cCtx.fill(); cCtx.restore();
+            }
+        }
+
+        function loopClimax() {
+            if (!climaxActive) return;
+            cCtx.fillStyle = 'rgba(3, 7, 18, 0.2)';
+            cCtx.fillRect(0, 0, cCanvas.width, cCanvas.height);
+            if (Math.random() < 0.05) {
+                const x = Math.random() * cCanvas.width; const y = Math.random() * (cCanvas.height * 0.4) + cCanvas.height * 0.2;
+                const color = concertColors[Math.floor(Math.random() * concertColors.length)];
+                for(let i=0; i<45; i++) sparks.push(new Spark(x, y, color));
+            }
+            sparks.forEach((s, idx) => { s.update(); if(s.alpha<=0) sparks.splice(idx,1); else s.draw(); });
+            requestAnimationFrame(loopClimax);
+        }
+
+        function initializeClimax(act) {
+            const node = document.getElementById('climax-status');
+            if (act && !climaxActive) { climaxActive = true; node.innerText = 'CONCERT STAGE LIVE'; node.style.color = '#10b981'; loopClimax(); } 
+            else if (!act && climaxActive) { climaxActive = false; node.innerText = 'SCROLL TO AWAKEN'; node.style.color = '#fff'; }
+        }
+
+        document.getElementById('hero-title').addEventListener('mouseenter', function() { this.innerText = 'Nermin'; this.classList.add('font-serif','italic','text-[#10b981]'); });
+        document.getElementById('hero-title').addEventListener('mouseleave', function() { this.innerText = 'Diva'; this.classList.remove('font-serif','italic','text-[#10b981]'); });
+        document.getElementById('back-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    </script>
+</body>
+</html>
